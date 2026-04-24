@@ -24,12 +24,8 @@ function generate() {
 
         console.log("返回数据:", data);
 
-        // 拼接真正下载链接（关键！！）
-        const downloadUrl =
-            "https://thermofisher-my.sharepoint.com/_layouts/15/download.aspx?SourceUrl="
-            + encodeURIComponent(data.fileLink);
-
-        window.open(downloadUrl);
+        // 👉 直接用 Flow 返回的分享链接
+        window.open(data.fileLink);
     })
     .catch(err => {
         document.getElementById("status").innerText = "❌ 生成失败";
