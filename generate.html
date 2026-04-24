@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>声明文件生成</title>
+    <meta charset="UTF-8">
+</head>
+
+<body style="font-family: Arial; padding: 40px;">
+
+<h2>📄 声明文件生成</h2>
+
+<p>填写信息后点击生成：</p>
+
+<input id="instrument" placeholder="Instrument Type"><br><br>
+<input id="date" placeholder="Date (YYYY-MM-DD)"><br><br>
+<input id="city" placeholder="City"><br><br>
+<input id="base" placeholder="Base Fee"><br><br>
+<input id="hourly" placeholder="Hourly Fee"><br><br>
+<input id="part" placeholder="Part Name"><br><br>
+<input id="price" placeholder="Part Price"><br><br>
+
+<button onclick="generate()" style="padding:10px 20px; font-size:16px;">
+    🚀 生成声明文件
+</button>
+
+<p id="status"></p>
+
+<script>
+function generate() {
+
+    document.getElementById("status").innerText = "⏳ 正在生成，请稍等...";
+
+    fetch("https://defaultb67d722daa8a4777a169ebeb7a6a3b.67.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c26fc754ca9b4651a8877bc90ea1ecbc/triggers/manual/paths/invoke?api-version=1）", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            Instrument_Type: document.getElementById("instrument").value,
+            Declaration_Date: document.getElementById("date").value,
+            City: document.getElementById("city").value,
+            Base_Fee: document.getElementById("base").value,
+            Hourly_Fee: document.getElementById("hourly").value,
+            Part_Name: document.getElementById("part").value,
+            Part_Price: document.getElementById("price").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("status").innerText = "✅ 生成成功！正在下载...";
+        window.location.href = data.fileLink;
+    })
+    .catch(err => {
+        document.getElementById("status").innerText = "❌ 生成失败";
+        console.error(err);
+    });
+}
+</script>
+
+</body>
+</html>
