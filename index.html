@@ -30,7 +30,7 @@ function generate() {
 
     document.getElementById("status").innerText = "⏳ 正在生成，请稍等...";
 
-    fetch("你的FLOW URL", {
+    fetch("https://defaultb67d722daa8a4777a169ebeb7a6a3b.67.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c26fc754ca9b4651a8877bc90ea1ecbc/triggers/manual/paths/invoke?api-version=1L", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
